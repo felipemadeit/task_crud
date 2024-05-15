@@ -1,11 +1,20 @@
-<h1>Log in </h1>
+{% extends 'base.html' %}
 
-{{error}}
+{% block title %}
+    Login
+{% endblock %}
 
-<form  method='POST'>
-    {% csrf_token %}
-    {{form.as_p}}
-    <button>
-        Sign Up
-    </button>
-</form>
+{% block body %}
+    <h1>Log in </h1>
+
+    {{error}}
+
+    <form  method='POST'>
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>
+            Sign Up
+        </button>
+    </form>
+{% endblock %}
+

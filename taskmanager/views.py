@@ -1,7 +1,8 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import User
+from django.contrib.auth import login, logout
+from django.db import IntegrityError
 
 def home_view (request):
     return render(request, 'home.html')
@@ -14,15 +15,16 @@ def signup (request):
         })
     else:
         if request.POST['password1'] == request.POST['password2']:
-            try :   
+            try:   
                 user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
                 user.save()
-                return HttpResponse('User created succesfully!')
-                # Register User
-            except:
-                return render(request, 'signup.html', {
+                login(request, user)
+                return redirect('task')
+            except IntegrityError:
+                return render(request, 'login.html', {
                     'form': UserCreationForm,
                     'error': 'Username Already Exists'
+
                 })
         else:
             return render(request, 'signup.html', {
@@ -31,4 +33,9 @@ def signup (request):
             })
 
 
-    
+def task_view (request):
+    return render (request, 'task.html')
+
+def log_out (request):
+    logout(request)
+    return redirect('home')
