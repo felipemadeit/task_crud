@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Log in
+{% endblock %}
+
+{% block body %}
+    <h1>Log in Here</h1>
+    {{error}}
+    <form action ='' method='POST'>
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>
+            Log in 
+        </button>
+    </form>
+{% endblock %}

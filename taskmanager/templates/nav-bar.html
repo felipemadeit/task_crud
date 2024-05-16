@@ -6,7 +6,9 @@
         {% if user.is_authenticated %}
             <li><a href='{% url 'log_out' %}'>Log Out</a></li>
         {% else %}
-            <li><a href='{% url 'signup' %}'>Login</a></li>
+            <li><a href='{% url 'signup' %}'>Sign Up</a></li>
+            <li><a href='{% url 'login' %}'>Log in</a></li>
         {% endif %}
+
     </ul>
 </nav>
