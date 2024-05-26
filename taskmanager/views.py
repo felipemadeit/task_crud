@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.forms import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
+from .forms import TaskForm
 
 def home_view (request):
     # Principal view
@@ -63,5 +64,29 @@ def log_in (request):
             })
         else:
             login(request, user)
+            return redirect('/task')
+        
+def create_task (request):
+
+    if request.method == 'GET':
+
+        return render(request, 'create_task.html', {
+
+            'form' : TaskForm
+        })
+    
+    else: 
+        try: 
+
+            form = TaskForm(request.POST)
+            new_task = form.save(commit=False)
+            new_task.user = request.user
+            new_task.save()
             return redirect('task')
         
+        except ValueError:
+
+            return render (request, 'create_task.html', {
+                'form' : TaskForm,
+                'error': 'Please enter valid data'
+        })

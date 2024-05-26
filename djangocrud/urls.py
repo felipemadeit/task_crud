@@ -24,5 +24,6 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('task/', views.task_view, name='task'),
     path('logout/', views.log_out, name='log_out'),
-    path('login/', views.log_in, name='login')
-]
+    path('login/', views.log_in, name='login'),
+    path('task/create/', views.create_task, name = 'createtask')
+]                                                               
