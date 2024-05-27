@@ -4,6 +4,7 @@ from django.contrib.auth.forms import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from .forms import TaskForm
+from .models import Task
 
 def home_view (request):
     # Principal view
@@ -44,7 +45,10 @@ def signup (request):
 
 
 def task_view (request):
-    return render (request, 'task.html')
+    tasks = Task.objects.filter(user=request.user)
+    return render (request, 'task.html', {
+        'tasks': tasks
+    })
 
 def log_out (request):
     logout(request)

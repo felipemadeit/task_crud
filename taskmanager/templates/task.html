@@ -5,5 +5,11 @@
 {% endblock %}
 
 {% block body %}
-    In the future in this place you will be able to manage your task
+
+    {% for task in tasks%}
+        <h1>{{task.title}}</h1>
+        <p>{{task.description}}</p>
+        <p>{{task.user.username}}</p>
+    {% endfor %}
+
 {% endblock %}
